@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Clientes{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Clientes</h2>
+
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
+
+        <tr>
+
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Estado</th>
+            <th>Acción</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for c in clientes %}
+
+        <tr>
+
+            <td>{{ c.id }}</td>
+
+            <td>{{ c.nombre }}</td>
+
+            <td>{{ c.email }}</td>
+
+            <td>
+
+                {% if c.activo %}
+
+                    <span class="badge bg-success">
+
+                        Activo
+
+                    </span>
+
+                {% else %}
+
+                    <span class="badge bg-danger">
+
+                        Inactivo
+
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                <form
+                    action="{{ url_for('admin.toggle_cliente', id=c.id) }}"
+                    method="POST">
+
+                    {% if c.activo %}
+
+                    <button
+                        class="btn btn-danger btn-sm">
+
+                        Desactivar
+
+                    </button>
+
+                    {% else %}
+
+                    <button
+                        class="btn btn-success btn-sm">
+
+                        Activar
+
+                    </button>
+
+                    {% endif %}
+
+                </form>
+
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

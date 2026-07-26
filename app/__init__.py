@@ -40,8 +40,8 @@ def create_app():
     from app.blueprints.admin import admin_bp
 
     app.register_blueprint(public_bp)
-    app.register_blueprint(auth_bp, utl_prefix='/auth')
-    app.register_blueprint(admin_bp, utl_prefix='/admin')
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(admin_bp, url_prefix='/admin')
 
     return app
 
