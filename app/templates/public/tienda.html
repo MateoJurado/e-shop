@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% block title %}Catálogo – wheel.ec{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    
+    <!-- Título de la sección -->
+    <div class="mb-4">
+        <h2 class="fw-bold text-dark">Catálogo de Repuestos</h2>
+        <p class="text-secondary">Encuentra piezas garantizadas para el sistema de tu vehículo.</p>
+    </div>
+
+    <div class="row">
+
+      <!-- Sidebar de Filtros y Categorías -->
+      <div class="col-md-3 mb-4">
+        
+        <!-- Tarjeta de Búsqueda -->
+        <div class="card mb-4 border-0 shadow-sm rounded-4">
+          <div class="card-header fw-bold text-white py-3 rounded-top-4" style="background-color: var(--color-azul);">
+            🔍 Buscar Repuesto
+          </div>
+          <div class="card-body bg-white rounded-bottom-4">
+            <form method="GET">
+              <input type="text" name="q" value="{{ busqueda }}"
+                     class="form-control mb-3 border-secondary-subtle" placeholder="Ej. Pastillas, bujías...">
+              <button class="btn btn-wheel w-100 rounded-pill">Buscar</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Tarjeta de Categorías (Corregido el color del título para que se lea perfectamente) -->
+        <div class="card border-0 shadow-sm rounded-4">
+          <div class="card-header fw-bold py-3 rounded-top-4" style="background-color: #F1F5F9; color: var(--color-azul); border-bottom: 2px solid var(--color-amarillo);">
+            📂 Categorías
+          </div>
+          <div class="list-group list-group-flush rounded-bottom-4 overflow-hidden">
+            <a href="{{ url_for('public.tienda') }}"
+               class="list-group-item list-group-item-action py-3 {% if not categoria_id %}fw-bold text-white{% endif %}"
+               {% if not categoria_id %}style="background-color: var(--color-azul);"{% endif %}>
+              Todas las categorías
+            </a>
+            {% for cat in categorias %}
+            <a href="{{ url_for('public.tienda', categoria=cat.id) }}"
+               class="list-group-item list-group-item-action py-3 {% if categoria_id == cat.id %}fw-bold text-white{% endif %}"
+               {% if categoria_id == cat.id %}style="background-color: var(--color-azul);"{% endif %}>
+              {{ cat.nombre }}
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Grilla de productos -->
+      <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+          <h5 class="fw-bold text-dark m-0">{{ productos.total }} repuesto(s) encontrado(s)</h5>
+        </div>
+
+        {% if productos.items %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          {% for p in productos.items %}
+          <div class="col">
+            <div class="card h-100 shadow-sm card-product border-0">
+              
+              {% if p.imagen %}
+                <img src="{{ url_for('static', filename='img/' + p.imagen) }}"
+                     class="card-img-top p-3 bg-light" style="height:200px; object-fit:contain;" alt="{{ p.nombre }}">
+              {% else %}
+                <img src="{{ url_for('static', filename='img/default.jpg') }}"
+                     class="card-img-top p-3 bg-light" style="height:200px; object-fit:contain; opacity: 0.5;" alt="Sin imagen">
+              {% endif %}
+              
+              <div class="card-body d-flex flex-column">
+                <h6 class="card-title fw-bold fs-5 text-dark mb-2">{{ p.nombre }}</h6>
+                <div class="mb-2">
+                    <span class="badge" style="background-color: #FEF3C7; color: #92400E; font-weight: 600;">{{ p.categoria.nombre }}</span>
+                </div>
+                
+                <p class="card-text text-muted small mb-3" style="min-height: 40px;">
+                    {{ p.descripcion }}
+                </p>
+                
+                <div class="mt-auto border-top pt-3">
+                    <p class="fw-bold fs-4 mb-1" style="color: var(--color-azul);">${{ "%.2f"|format(p.precio) }}</p>
+                    <small class="text-muted d-block mb-3">Stock disponible: <strong class="text-dark">{{ p.stock }}</strong></small>
+                </div>
+              </div>
+              
+              <div class="card-footer bg-white border-top-0 d-grid gap-2 pb-3 px-3">
+                <a href="{{ url_for('public.detalle_producto', id=p.id) }}"
+                   class="btn btn-sm btn-outline-dark rounded-pill fw-bold">Ver detalle</a>
+                   
+                <form method="POST" action="{{ url_for('public.agregar_carrito', id=p.id) }}">
+                  <input type="hidden" name="cantidad" value="1">
+                  <button class="btn btn-sm btn-wheel w-100 rounded-pill"
+                          {% if not p.tiene_stock() %}disabled{% endif %}>
+                    {% if p.tiene_stock() %}🛒 Agregar al carrito{% else %}🚫 Agotado{% endif %}
+                  </button>
+                </form>
+              </div>
+              
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Paginación -->
+        <nav class="mt-5">
+          <ul class="pagination justify-content-center">
+            {% if productos.has_prev %}
+            <li class="page-item">
+              <a class="page-link text-dark"
+                 href="{{ url_for('public.tienda', pagina=productos.prev_num, categoria=categoria_id, q=busqueda) }}">
+                Anterior
+              </a>
+            </li>
+            {% endif %}
+            
+            {% for num in productos.iter_pages() %}
+              {% if num %}
+              <li class="page-item {% if num == productos.page %}active{% endif %}">
+                <a class="page-link {% if num == productos.page %}text-white fw-bold{% else %}text-dark{% endif %}"
+                   href="{{ url_for('public.tienda', pagina=num, categoria=categoria_id, q=busqueda) }}"
+                   {% if num == productos.page %}style="background-color: var(--color-azul); border-color: var(--color-azul);"{% endif %}>
+                  {{ num }}
+                </a>
+              </li>
+              {% endif %}
+            {% endfor %}
+            
+            {% if productos.has_next %}
+            <li class="page-item">
+              <a class="page-link text-dark"
+                 href="{{ url_for('public.tienda', pagina=productos.next_num, categoria=categoria_id, q=busqueda) }}">
+                Siguiente
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+
+        {% else %}
+        <div class="alert alert-warning shadow-sm border-0 mt-4 rounded-4 p-4 text-center">
+            <h5>No se encontraron repuestos</h5>
+            <p class="text-muted mb-0">Intenta buscando con otro término o seleccionando otra categoría.</p>
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+</div>
+{% endblock %}

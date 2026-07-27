@@ -1,0 +1,99 @@
+:root {
+    --color-fondo: #F8FAFC;          
+    --color-azul: #1E3A8A;           
+    --color-amarillo: #F59E0B;       
+    --color-amarillo-hover: #D97706; 
+    --color-texto: #0F172A;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* Botones principales estilo píldora */
+.btn-wheel {
+    background-color: var(--color-amarillo);
+    border-color: var(--color-amarillo);
+    color: #0F172A;
+    font-weight: 700;
+    padding: 0.75rem 2.5rem;
+    border-radius: 50rem;
+    transition: all 0.3s ease;
+}
+
+.btn-wheel:hover {
+    background-color: var(--color-amarillo-hover);
+    border-color: var(--color-amarillo-hover);
+    color: #0F172A;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+/* Banner con azul dominante y degradado profesional */
+.hero-gradient {
+    background: linear-gradient(180deg, #1E40AF 0%, #2563EB 50%, #3B82F6 100%);
+    padding: 5rem 1rem 4rem 1rem;
+    text-align: center;
+    position: relative;
+    border-bottom: 4px solid var(--color-amarillo);
+    box-shadow: 0 10px 25px rgba(30, 58, 138, 0.2);
+}
+
+/* Animación de la flecha rebotando */
+@keyframes bounceArrow {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.bouncing-arrow {
+    font-size: 2.2rem;
+    color: var(--color-amarillo);
+    margin-top: 3rem;
+    display: inline-block;
+    animation: bounceArrow 2s infinite;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.bouncing-arrow:hover {
+    color: #FFFFFF;
+}
+
+/* Tarjetas de productos modernas */
+.card-product {
+    background-color: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-product:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(30, 58, 138, 0.1);
+}
+
+.text-wheel-dark {
+    color: var(--color-azul) !important;
+}
+
+.badge-wheel {
+    background-color: var(--color-azul) !important;
+    color: white;
+}

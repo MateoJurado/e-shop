@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}Acerca de – wheel.ec{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    
+    <!-- Encabezado Principal -->
+    <div class="text-center mb-5">
+        <span class="badge px-3 py-2 rounded-pill fw-bold mb-3" style="background-color: var(--color-amarillo); color: #0F172A; font-size: 0.9rem;">
+            🚗 Innovación en Autopartes
+        </span>
+        <h1 class="display-5 fw-bold text-dark">Acerca de wheel.ec</h1>
+        <p class="lead text-secondary mx-auto mt-2" style="max-width: 700px;">
+            Plataforma moderna de comercio electrónico especializada en la comercialización de repuestos y autopartes de alta calidad para vehículos en todo el Ecuador.
+        </p>
+    </div>
+
+    <!-- Misión y Visión -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm p-4 rounded-4" style="border-top: 5px solid var(--color-azul) !important;">
+                <div class="card-body">
+                    <div class="mb-3 fs-2">🎯</div>
+                    <h3 class="fw-bold text-dark mb-3">Nuestra Misión</h3>
+                    <p class="text-secondary lh-lg mb-0">
+                        Brindar a nuestros clientes una solución digital rápida, segura y confiable para encontrar los repuestos exactos que sus vehículos necesitan. Optimizamos la búsqueda de autopartes garantizando componentes de motor, frenos, suspensión y sistema eléctrico con altos estándares de calidad.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm p-4 rounded-4" style="border-top: 5px solid var(--color-amarillo) !important;">
+                <div class="card-body">
+                    <div class="mb-3 fs-2">🚀</div>
+                    <h3 class="fw-bold text-dark mb-3">Nuestra Visión</h3>
+                    <p class="text-secondary lh-lg mb-0">
+                        Convertirnos en la plataforma de comercio electrónico de referencia a nivel nacional en el sector automotriz, destacando por nuestra interfaz intuitiva, eficiencia en la gestión de pedidos y un catálogo diversificado que cubra las necesidades de todo conductor ecuatoriano.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Características del Sistema -->
+    <div class="card border-0 shadow-sm p-4 p-md-5 rounded-4 mb-5 bg-white">
+        <h3 class="fw-bold text-dark mb-4 text-center">¿Qué ofrecemos en la plataforma?</h3>
+        <div class="row g-4">
+            <div class="col-md-4 text-center text-md-start">
+                <div class="p-3 rounded-3 d-inline-block mb-3" style="background-color: #FEF3C7; font-size: 1.5rem;">🔍</div>
+                <h5 class="fw-bold text-dark">Catálogo Inteligente</h5>
+                <p class="text-secondary small">Búsqueda avanzada y filtrado por categorías específicas (Motor, Frenos, Suspensión, Sistema Eléctrico).</p>
+            </div>
+            <div class="col-md-4 text-center text-md-start">
+                <div class="p-3 rounded-3 d-inline-block mb-3" style="background-color: #DBEAFE; font-size: 1.5rem;">🛒</div>
+                <h5 class="fw-bold text-dark">Carrito y Pedidos</h5>
+                <p class="text-secondary small">Gestión fluida de compras, control de stock en tiempo real y seguimiento detallado de los pedidos realizados por el usuario.</p>
+            </div>
+            <div class="col-md-4 text-center text-md-start">
+                <div class="p-3 rounded-3 d-inline-block mb-3" style="background-color: #FEF3C7; font-size: 1.5rem;">⚙️</div>
+                <h5 class="fw-bold text-dark">Panel Administrativo</h5>
+                <p class="text-secondary small">Módulo exclusivo de administración para el control de inventario, adición de nuevos productos y estatus de órdenes.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contexto del Proyecto Académico -->
+    <div class="row align-items-center bg-light p-4 p-md-5 rounded-4 border shadow-sm mb-4">
+        <div class="col-lg-8">
+            <span class="text-uppercase fw-bold small" style="color: var(--color-azul);">Proyecto Universitario</span>
+            <h3 class="fw-bold text-dark mt-1 mb-3">Desarrollo de Páginas Web</h3>
+            <p class="text-secondary mb-3">
+                Este software ha sido diseñado y construido como parte de la formación académica en la carrera de <strong>Negocios Digitales</strong> de la <strong>Universidad Politécnica Salesiana</strong>. Implementa arquitectura web moderna, gestión de bases de datos relacionales y control de accesos seguros basados en roles.
+            </p>
+            <div class="d-flex gap-3 flex-wrap">
+                <span class="badge bg-white text-dark border px-3 py-2">📅 Año: 2026</span>
+                <span class="badge bg-white text-dark border px-3 py-2">🏛️ UPS Quito</span>
+                <span class="badge bg-white text-dark border px-3 py-2">💻 Flask & Bootstrap 5</span>
+            </div>
+        </div>
+        <div class="col-lg-4 text-center mt-4 mt-lg-0">
+            <div class="p-4 bg-white rounded-3 shadow-sm border">
+                <h5 class="fw-bold text-dark mb-1">wheel.ec</h5>
+                <p class="text-muted small mb-3">Tu tienda de confianza</p>
+                <a href="{{ url_for('public.tienda') }}" class="btn btn-wheel btn-sm w-100 rounded-pill">Explorar Tienda</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
