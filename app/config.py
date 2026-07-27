@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-<<<<<<< HEAD
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret')
     
     # Configuración de la BD con valores por defecto para entorno local
@@ -27,14 +26,3 @@ class Config:
     
     # Extensiones permitidas (Requerimiento del checklist)
     ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'webp','png'}
-=======
-    SECRET_KEY= os.getenv('SECRET_KEY','dev-secret')
-    #Configuracion de la BD
-    SQLALCHEMY_DATABASE_URI = (
-        f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}"
-        f"@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
-    )
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-    
->>>>>>> f7d16a8be16f03e7db395170a45e982b073714e8
